@@ -1,0 +1,13 @@
+{
+  "domain": "swatch_time",
+  "name": "Swatch Time",
+  "config_flow": true,
+  "documentation": "https://github.com/andrewjswan/SwatchTime",
+  "issue_tracker": "https://github.com/andrewjswan/SwatchTime/issues",
+  "codeowners": ["@andrewjswan"],
+  "dependencies": [],
+  "requirements": [],
+  "version": "1.0.5",
+  "integration_type": "service",
+  "iot_class": "local_push"
+}
