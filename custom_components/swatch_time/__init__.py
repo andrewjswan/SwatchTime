@@ -1,22 +1,37 @@
-"""The swatch_time component."""
-from __future__ import annotations
+"""The Swatch Time component."""
 
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+import voluptuous as vol
 
-from .const import PLATFORMS
+from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
+from homeassistant.const          import Platform
+from homeassistant.core           import DOMAIN as HOMEASSISTANT_DOMAIN, HomeAssistant
+from homeassistant.helpers.typing import ConfigType
+
+from .const import DOMAIN
+
+CONFIG_SCHEMA = vol.Schema(
+    {vol.Optional(DOMAIN): {}},
+    extra=vol.ALLOW_EXTRA,
+)
 
 
-async def async_setup(hass: HomeAssistantType, hass_config: dict):
-    """Set up Swatch Time from a config entry."""
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
+    """Set up the Swatch Time component."""
+    if DOMAIN in config:
+        hass.async_create_task(
+            hass.config_entries.flow.async_init(
+                DOMAIN, context={"source": SOURCE_IMPORT}, data=config
+            )
+        )
     return True
 
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Swatch Time from a config entry."""
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    """Load a config entry."""
+    await hass.config_entries.async_forward_entry_setups(entry, [Platform.SENSOR])
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Unload Swatch Time config entry."""
-    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    """Unload a config entry."""
+    return await hass.config_entries.async_unload_platforms(entry, [Platform.SENSOR])

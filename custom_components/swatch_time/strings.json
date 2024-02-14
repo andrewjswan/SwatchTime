@@ -1,42 +1,13 @@
 {
   "title": "Swatch Time",
   "config": {
-    "abort": {
-      "already_configured": "The chosen Swatch Time sensor has already been configured"
-    },
     "step": {
       "user": {
-        "description": "Select from the sensor options below",
-        "data": {
-          "display_options": "Sensor type"
-        }
+        "description": "[%key:common::config_flow::description::confirm_setup%]"
       }
     },
-    "error": {
-      "timezone_not_exist": "Timezone is not set in Home Assistant configuration"
-    }
-  },
-  "options": {
-    "step": {
-      "init": {
-        "data": {
-          "display_options": "[%key:component::time_date::config::step::user::data::display_options%]"
-        }
-      }
-    }
-  },
-  "selector": {
-    "display_options": {
-      "options": {
-        "swatch_time": "Swatch (Internet) Time"
-      }
-    }
-  },
-  "entity": {
-    "sensor": {
-      "beat": {
-        "name": "[%key:component::time_date::selector::display_options::options::beat%]"
-      }
+    "abort": {
+      "single_instance_allowed": "[%key:common::config_flow::abort::single_instance_allowed%]"
     }
   }
 }
