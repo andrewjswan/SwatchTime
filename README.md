@@ -1,6 +1,6 @@
 # SwatchTime for Home Assistant
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/custom-components/hacs)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/andrewjswan/SwatchTime/validate.yml?logo=github)](https://github.com/andrewjswan/SwatchTime/actions)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/SwatchTime?include_prereleases)](https://github.com/andrewjswan/SwatchTime/releases)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/downloads-pre/andrewjswan/SwatchTime/latest/total?label=release@downloads)](https://github.com/andrewjswan/SwatchTime/releases)
