@@ -40,6 +40,8 @@ class SwatchTimeSensor(SensorEntity):
         """Initialize Swatch Time sensor."""
         self._attr_device_info = DeviceInfo(
             name=DEFAULT_NAME,
+            manufacturer="Swatch",
+            hw_version="1998.10.23",
             identifiers={(DOMAIN, entry_id)},
             entry_type=DeviceEntryType.SERVICE,
         )
