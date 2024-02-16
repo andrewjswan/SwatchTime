@@ -9,6 +9,8 @@
 
 Create [Swatch Internet Time](https://en.wikipedia.org/wiki/Swatch_Internet_Time) sensor for [Home Assistant](https://www.home-assistant.io/).
 
+![Swatch time](https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Swatch_beat_Logo.svg/220px-Swatch_beat_Logo.svg.png)
+
 ## Installation
 
 **Method 1.** [HACS](https://hacs.xyz/) custom repo:
