@@ -19,13 +19,15 @@ import logging
 
 _LOGGER = logging.getLogger(__name__)
 
-
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Initialize the entries."""
+    global _swatch_time_version
+    _swatch_time_version = getattr(hass.data["integrations"][DOMAIN], "version", 0)
+
     async_add_entities([SwatchTimeSensor(entry_id=entry.entry_id)], True)
 
 
@@ -39,11 +41,12 @@ class SwatchTimeSensor(SensorEntity):
     def __init__(self, entry_id: str) -> None:
         """Initialize Swatch Time sensor."""
         self._attr_device_info = DeviceInfo(
-            name=DEFAULT_NAME,
-            manufacturer="Swatch",
-            hw_version="1998.10.23",
-            identifiers={(DOMAIN, entry_id)},
-            entry_type=DeviceEntryType.SERVICE,
+            name         = DEFAULT_NAME,
+            manufacturer = "Swatch",
+            hw_version   = "1998.10.23",
+            sw_version   = _swatch_time_version,
+            identifiers  = {(DOMAIN, entry_id)},
+            entry_type   = DeviceEntryType.SERVICE,
         )
 
         self._update_internal_state(dt_util.utcnow())
