@@ -25,9 +25,6 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Initialize the entries."""
-    global _swatch_time_version
-    _swatch_time_version = getattr(hass.data["integrations"][DOMAIN], "version", 0)
-
     async_add_entities([SwatchTimeSensor(entry_id=entry.entry_id)], True)
 
 
@@ -44,7 +41,6 @@ class SwatchTimeSensor(SensorEntity):
             name         = DEFAULT_NAME,
             manufacturer = "Swatch",
             hw_version   = "1998.10.23",
-            sw_version   = _swatch_time_version,
             identifiers  = {(DOMAIN, entry_id)},
             entry_type   = DeviceEntryType.SERVICE,
         )
