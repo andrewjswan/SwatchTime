@@ -7,7 +7,7 @@
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/downloads-pre/andrewjswan/SwatchTime/latest/total?label=release@downloads)](https://github.com/andrewjswan/SwatchTime/releases)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
-Create [Swatch Internet Time](https://en.wikipedia.org/wiki/Swatch_Internet_Time) sensor for [Home Assistant](https://www.home-assistant.io/).
+Create [Swatch / Internet Time](https://en.wikipedia.org/wiki/Swatch_Internet_Time) sensor for [Home Assistant](https://www.home-assistant.io/).
 
 ![Swatch Time](logo.png)
 
