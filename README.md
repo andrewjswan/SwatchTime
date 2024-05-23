@@ -1,6 +1,7 @@
 # SwatchTime for Home Assistant
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-blue.svg)](https://github.com/custom-components/hacs)
+[![HA Installs][installs]](https://analytics.home-assistant.io/custom_integrations.json)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/andrewjswan/SwatchTime/validate.yml?logo=github)](https://github.com/andrewjswan/SwatchTime/actions)
 [![GitHub](https://img.shields.io/github/license/andrewjswan/SwatchTime?color=blue)](https://github.com/andrewjswan/SwatchTime/blob/master/LICENSE)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/SwatchTime?include_prereleases)](https://github.com/andrewjswan/SwatchTime/releases)
@@ -42,3 +43,5 @@ If the integration is not in the list, you need to clear the browser cache.
 ```yaml
 swatch_time:
 ```
+
+[installs]: https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=integration%20usage&suffix=%20installs&cacheSeconds=15600&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.swatch_time.total
