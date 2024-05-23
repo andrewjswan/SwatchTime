@@ -1,11 +1,12 @@
 # SwatchTime for Home Assistant
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-blue.svg)](https://github.com/custom-components/hacs)
-[![HA Installs][installs]](https://analytics.home-assistant.io/custom_integrations.json)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/andrewjswan/SwatchTime/validate.yml?logo=github)](https://github.com/andrewjswan/SwatchTime/actions)
 [![GitHub](https://img.shields.io/github/license/andrewjswan/SwatchTime?color=blue)](https://github.com/andrewjswan/SwatchTime/blob/master/LICENSE)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/SwatchTime?include_prereleases)](https://github.com/andrewjswan/SwatchTime/releases)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/downloads-pre/andrewjswan/SwatchTime/latest/total?label=release@downloads)](https://github.com/andrewjswan/SwatchTime/releases)
+
+[![HA Installs][installs]](https://analytics.home-assistant.io/custom_integrations.json)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
 Create [Swatch / Internet Time](https://en.wikipedia.org/wiki/Swatch_Internet_Time) sensor for [Home Assistant](https://www.home-assistant.io/).
