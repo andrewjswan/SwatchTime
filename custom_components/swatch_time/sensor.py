@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from homeassistant.components.sensor       import SensorEntity
-from homeassistant.config_entries          import ConfigEntry
-from homeassistant.const                   import EVENT_CORE_CONFIG_UPDATE
-from homeassistant.core                    import callback
-from datetime                              import datetime, timedelta
+from homeassistant.components.sensor import SensorEntity
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EVENT_CORE_CONFIG_UPDATE
+from homeassistant.core import callback, HomeAssistant
+from datetime import datetime, timedelta
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.event           import async_track_point_in_utc_time
+from homeassistant.helpers.event import async_track_point_in_utc_time
 
 from .const import DOMAIN, DEFAULT_NAME
 
@@ -17,9 +17,10 @@ import homeassistant.util.dt as dt_util
 
 import logging
 
-_LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(
+    hass: HomeAssistant,  # noqa: ARG001
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
@@ -55,7 +56,7 @@ class SwatchTimeSensor(SensorEntity):
 
     @property
     def icon(self) -> str:
-        """Set up Icon.""" 
+        """Set up Icon."""
         return "mdi:clock"
 
 
@@ -87,7 +88,7 @@ class SwatchTimeSensor(SensorEntity):
         delta = 86.4 - (timestamp % 86.4)
         next_interval = time_date + timedelta(seconds = delta)
 
-        _LOGGER.debug("%s + %s -> %s", time_date, delta, next_interval)
+        LOGGER.debug("%s + %s -> %s", time_date, delta, next_interval)
 
         return next_interval
 
