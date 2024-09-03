@@ -10,6 +10,7 @@ updates:
       time: "12:00"
     labels:
       - dependencies
+      - github-actions
     commit-message:
       prefix: "DEP"
     open-pull-requests-limit: 10
@@ -23,6 +24,7 @@ updates:
       time: "12:00"
     labels:
       - dependencies
+      - python
     commit-message:
       prefix: "PIP"
     open-pull-requests-limit: 10
