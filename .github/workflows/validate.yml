@@ -1,36 +1,108 @@
-name: Validate
+name: SwatchTime / Validate
 
 on:
   push:
   pull_request:
 
 jobs:
-  ha:
-    name: HA Validation (hassfest)
-    runs-on: "ubuntu-latest"
+  changes:
+    name: 👀 Source / Changed
+    runs-on: ubuntu-latest
+    outputs:
+      src: ${{ steps.changes.outputs.src }}
+      python: ${{ steps.changes.outputs.python }}
+      yaml: ${{ steps.changes.outputs.yaml }}
     steps:
-      - uses: "actions/checkout@v4"
-      - uses: "home-assistant/actions/hassfest@master"
+      - name: ⬇️ Check out Repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Check for changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'custom_components/**'
+            python:
+              - '**.py'
+              - 'requirements.txt'
+            yaml:
+              - '**.yaml'
+              - '**.yml'
+
+  python:
+    name: 🧹 Python Ruff
+    if: ${{ needs.changes.outputs.python == 'true' }}
+    needs:
+      - changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Check out Repo
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: 📦 Install requirements
+        run: python3 -m pip install -r requirements.txt
+
+      - name: ⚙️ Lint
+        run: python3 -m ruff check .
+
+      - name: 💅 Format
+        run: python3 -m ruff format . --check
+
+  yamllint:
+    name: 🧹 Yaml Lint
+    if: ${{ needs.changes.outputs.yaml == 'true' }}
+    needs:
+      - changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out Repo
+        uses: actions/checkout@v4
+
+      - name: 🚀 Run yamllint
+        run: yamllint --strict .
+
+  ha:
+    name: 👻 HA Validation (hassfest)
+    if: ${{ needs.changes.outputs.src == 'true' }}
+    needs:
+      - changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out Repo
+        uses: "actions/checkout@v4"
+      - name: 🚀 Run HassFest
+        uses: "home-assistant/actions/hassfest@master"
 
   hacs:
-    name: HACS Validation
-    runs-on: "ubuntu-latest"
+    name: 🏠 HACS Validation
+    if: ${{ needs.changes.outputs.src == 'true' }}
+    needs:
+      - changes
+    runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v4"
-      - uses: "hacs/action@main"
-        with: { category: "integration" }
+      - name: ⤵️ Check out Repo
+        uses: "actions/checkout@v4"
+      - name: 🚀 Run HACS Validation
+        uses: "hacs/action@main"
+        with: {category: "integration"}
 
   ci-status:
-    name: Status
+    name: 🎭 Status
     runs-on: ubuntu-latest
     needs:
       - ha
       - hacs
     if: always()
     steps:
-      - name: Success
+      - name: 🎉 Success
         if: ${{ !(contains(needs.*.result, 'failure')) }}
         run: exit 0
-      - name: Failure
+      - name: ❌ Failure
         if: ${{ contains(needs.*.result, 'failure') }}
         run: exit 1

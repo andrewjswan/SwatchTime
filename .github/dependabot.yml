@@ -1,6 +1,7 @@
 version: 2
 
 updates:
+  # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -9,6 +10,21 @@ updates:
       time: "12:00"
     labels:
       - dependencies
+      - github-actions
     commit-message:
       prefix: "DEP"
+    open-pull-requests-limit: 10
+
+  # Update Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "12:00"
+    labels:
+      - dependencies
+      - python
+    commit-message:
+      prefix: "PIP"
     open-pull-requests-limit: 10
