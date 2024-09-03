@@ -1,0 +1,75 @@
+name: Workflow / Lint
+
+on:
+  push:
+    paths:
+      - "**.py"
+      - requirements.txt
+      - "**.yaml"
+      - "**.yml"
+  pull_request:
+    paths:
+      - "**.py"
+      - requirements.txt
+      - "**.yaml"
+      - "**.yml"
+
+jobs:
+  changes:
+    name: Source / Changed
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.changes.outputs.python }}
+      yaml: ${{ steps.changes.outputs.yaml }}
+    steps:
+    - name: ⬇️ Check out Repo
+      uses: actions/checkout@v4
+
+    - name: ⚙️ Check for changes
+      uses: dorny/paths-filter@v3
+      id: changes
+      with:
+        filters: |
+          python:
+            - '**.py'
+            - 'requirements.txt'
+          yaml:
+            - '**.yaml'
+            - '**.yml'
+
+  python:
+    name: Python
+    if: ${{ needs.changes.outputs.python == 'true' }}
+    needs: 
+      - changes    
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Check out Repo
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: 📦 Install requirements
+        run: python3 -m pip install -r requirements.txt
+
+      - name: ⚙️ Lint
+        run: python3 -m ruff check .
+
+      - name: 💅 Format
+        run: python3 -m ruff format . --check
+  
+  yamllint:
+    name: 🧹 Yaml Lint
+    if: ${{ needs.changes.outputs.yaml == 'true' }}
+    needs: 
+      - changes    
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out Repo
+        uses: actions/checkout@v4
+
+      - name: 🚀 Run yamllint
+        run: yamllint --strict .
