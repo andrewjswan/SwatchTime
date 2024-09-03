@@ -6,7 +6,7 @@ on:
 
 jobs:
   changes:
-    name: Source / Changed
+    name: 👀 Source / Changed
     runs-on: ubuntu-latest
     outputs:
       src: ${{ steps.changes.outputs.src }}
@@ -68,7 +68,7 @@ jobs:
         run: yamllint --strict .
 
   ha:
-    name: HA Validation (hassfest)
+    name: 👻 HA Validation (hassfest)
     if: ${{ needs.changes.outputs.src == 'true' }}
     needs:
       - changes
@@ -80,7 +80,7 @@ jobs:
         uses: "home-assistant/actions/hassfest@master"
 
   hacs:
-    name: HACS Validation
+    name: 🏠 HACS Validation
     if: ${{ needs.changes.outputs.src == 'true' }}
     needs:
       - changes
@@ -93,16 +93,16 @@ jobs:
         with: {category: "integration"}
 
   ci-status:
-    name: Status
+    name: 🎭 Status
     runs-on: ubuntu-latest
     needs:
       - ha
       - hacs
     if: always()
     steps:
-      - name: Success
+      - name: 🎉 Success
         if: ${{ !(contains(needs.*.result, 'failure')) }}
         run: exit 0
-      - name: Failure
+      - name: ❌ Failure
         if: ${{ contains(needs.*.result, 'failure') }}
         run: exit 1
