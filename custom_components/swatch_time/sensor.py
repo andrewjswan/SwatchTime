@@ -5,7 +5,7 @@ from __future__ import annotations
 from homeassistant.components.sensor       import SensorEntity
 from homeassistant.config_entries          import ConfigEntry
 from homeassistant.const                   import EVENT_CORE_CONFIG_UPDATE
-from homeassistant.core                    import HomeAssistant, callback
+from homeassistant.core                    import callback
 from datetime                              import datetime, timedelta
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -55,6 +55,7 @@ class SwatchTimeSensor(SensorEntity):
 
     @property
     def icon(self) -> str:
+        """Set up Icon.""" 
         return "mdi:clock"
 
 
@@ -67,7 +68,7 @@ class SwatchTimeSensor(SensorEntity):
             self.async_write_ha_state()
 
         self.async_on_remove(
-            self.hass.bus.async_listen(EVENT_CORE_CONFIG_UPDATE, async_update_config)
+            self.hass.bus.async_listen(EVENT_CORE_CONFIG_UPDATE, async_update_config),
         )
         self._update_state_and_setup_listener()
 
@@ -113,7 +114,7 @@ class SwatchTimeSensor(SensorEntity):
         now = dt_util.utcnow()
         self._update_internal_state(now)
         self.unsub = async_track_point_in_utc_time(
-            self.hass, self.point_in_time_listener, self.get_next_interval(now)
+            self.hass, self.point_in_time_listener, self.get_next_interval(now),
         )
 
 
