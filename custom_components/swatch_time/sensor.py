@@ -24,7 +24,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Initialize the entries."""
-    async_add_entities([SwatchTimeSensor(entry_id=entry.entry_id)], True)
+    async_add_entities([SwatchTimeSensor(entry_id=entry.entry_id)], update_before_add=True)
 
 
 class SwatchTimeSensor(SensorEntity):
