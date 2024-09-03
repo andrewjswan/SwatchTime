@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from homeassistant.components.sensor       import SensorDeviceClass, SensorEntity
+from homeassistant.components.sensor       import SensorEntity
 from homeassistant.config_entries          import ConfigEntry
 from homeassistant.const                   import EVENT_CORE_CONFIG_UPDATE
 from homeassistant.core                    import HomeAssistant, callback
@@ -20,7 +20,6 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(
-    hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
@@ -62,7 +61,7 @@ class SwatchTimeSensor(SensorEntity):
     async def async_added_to_hass(self) -> None:
         """Set up first update."""
 
-        async def async_update_config(event: Event) -> None:
+        async def async_update_config() -> None:
             """Handle core config update."""
             self._update_state_and_setup_listener()
             self.async_write_ha_state()
@@ -119,7 +118,7 @@ class SwatchTimeSensor(SensorEntity):
 
 
     @callback
-    def point_in_time_listener(self, time_date: datetime) -> None:
+    def point_in_time_listener(self) -> None:
         """Get the latest data and update state."""
         self._update_state_and_setup_listener()
         self.async_write_ha_state()
