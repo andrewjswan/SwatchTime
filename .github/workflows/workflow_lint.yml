@@ -22,25 +22,25 @@ jobs:
       python: ${{ steps.changes.outputs.python }}
       yaml: ${{ steps.changes.outputs.yaml }}
     steps:
-    - name: ⬇️ Check out Repo
-      uses: actions/checkout@v4
+      - name: ⬇️ Check out Repo
+        uses: actions/checkout@v4
 
-    - name: ⚙️ Check for changes
-      uses: dorny/paths-filter@v3
-      id: changes
-      with:
-        filters: |
-          python:
-            - '**.py'
-            - 'requirements.txt'
-          yaml:
-            - '**.yaml'
-            - '**.yml'
+      - name: ⚙️ Check for changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            python:
+              - '**.py'
+              - 'requirements.txt'
+            yaml:
+              - '**.yaml'
+              - '**.yml'
 
   python:
-    name: Python
+    name: 🧹 Python
     if: ${{ needs.changes.outputs.python == 'true' }}
-    needs: 
+    needs:
       - changes    
     runs-on: ubuntu-latest
     steps:
@@ -60,12 +60,12 @@ jobs:
 
       - name: 💅 Format
         run: python3 -m ruff format . --check
-  
+
   yamllint:
     name: 🧹 Yaml Lint
     if: ${{ needs.changes.outputs.yaml == 'true' }}
-    needs: 
-      - changes    
+    needs:
+      - changes
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out Repo
