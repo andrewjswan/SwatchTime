@@ -15,7 +15,7 @@ class SwatchTimeConfigFlow(ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(
-        self, user_input: dict[str, Any] | None = None
+        self, user_input: dict[str, Any] | None = None,
     ) -> FlowResult:
         """Handle a flow initialized by the user."""
         if self._async_current_entries():
