@@ -41,7 +41,7 @@ jobs:
     name: 🧹 Python
     if: ${{ needs.changes.outputs.python == 'true' }}
     needs:
-      - changes    
+      - changes
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Check out Repo
