@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing                        import Any
-from homeassistant.config_entries  import ConfigFlow
+from typing import Any
+from homeassistant.config_entries import ConfigFlow
 from homeassistant.data_entry_flow import FlowResult
 
 from .const import DOMAIN, DEFAULT_NAME
