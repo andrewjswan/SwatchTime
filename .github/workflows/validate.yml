@@ -1,24 +1,15 @@
-name: Workflow / Lint
+name: SwatchTime / Validate
 
 on:
   push:
-    paths:
-      - "**.py"
-      - requirements.txt
-      - "**.yaml"
-      - "**.yml"
   pull_request:
-    paths:
-      - "**.py"
-      - requirements.txt
-      - "**.yaml"
-      - "**.yml"
 
 jobs:
   changes:
     name: Source / Changed
     runs-on: ubuntu-latest
     outputs:
+      src: ${{ steps.changes.outputs.src }}
       python: ${{ steps.changes.outputs.python }}
       yaml: ${{ steps.changes.outputs.yaml }}
     steps:
@@ -30,6 +21,8 @@ jobs:
         id: changes
         with:
           filters: |
+            scr:
+              - 'custom_components/**'
             python:
               - '**.py'
               - 'requirements.txt'
@@ -38,7 +31,7 @@ jobs:
               - '**.yml'
 
   python:
-    name: 🧹 Python
+    name: 🧹 Python Ruff
     if: ${{ needs.changes.outputs.python == 'true' }}
     needs:
       - changes
@@ -73,3 +66,43 @@ jobs:
 
       - name: 🚀 Run yamllint
         run: yamllint --strict .
+
+  ha:
+    name: HA Validation (hassfest)
+    if: ${{ needs.changes.outputs.src == 'true' }}
+    needs:
+      - changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out Repo
+        uses: "actions/checkout@v4"
+      - name: 🚀 Run HassFest
+        uses: "home-assistant/actions/hassfest@master"
+
+  hacs:
+    name: HACS Validation
+    if: ${{ needs.changes.outputs.src == 'true' }}
+    needs:
+      - changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out Repo
+        uses: "actions/checkout@v4"
+      - name: 🚀 Run HACS Validation
+        uses: "hacs/action@main"
+        with: {category: "integration"}
+
+  ci-status:
+    name: Status
+    runs-on: ubuntu-latest
+    needs:
+      - ha
+      - hacs
+    if: always()
+    steps:
+      - name: Success
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+      - name: Failure
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
