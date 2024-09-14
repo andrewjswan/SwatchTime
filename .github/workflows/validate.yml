@@ -46,7 +46,7 @@ jobs:
           python-version: "3.x"
 
       - name: 📦 Install requirements
-        run: python3 -m pip install -r requirements.txt
+        run: python3 -m pip install -r .github/requirements.txt
 
       - name: ⚙️ Lint
         run: python3 -m ruff check .
