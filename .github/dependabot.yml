@@ -17,7 +17,8 @@ updates:
 
   # Update Python dependencies
   - package-ecosystem: "pip"
-    directory: "/"
+    directories:
+      - "*"
     schedule:
       interval: weekly
       day: monday
