@@ -54,11 +54,13 @@ This integration is part of the default [HACS](https://hacs.xyz/) repository. Ju
 
 ### Method 1 - GUI:
 
-On **Devices and Services** page, click **Add Integration** and search for **SwatchTime**.
+Add integration via Home Assistant UI.
 
-If the integration is not in the list, you need to clear the browser cache.
+[![](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=SwatchTime)
 
 ### Method 2 - YAML:
+
+Add integration via `configuration.yaml`.
 
 ```yaml
 swatch_time:
