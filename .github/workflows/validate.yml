@@ -23,49 +23,6 @@ jobs:
           filters: |
             src:
               - 'custom_components/**'
-            python:
-              - '**.py'
-              - 'requirements.txt'
-            yaml:
-              - '**.yaml'
-              - '**.yml'
-
-  python:
-    name: 🧹 Python Ruff
-    if: ${{ needs.changes.outputs.python == 'true' }}
-    needs:
-      - changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Check out Repo
-        uses: actions/checkout@v4
-
-      - name: 🐍 Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-
-      - name: 📦 Install requirements
-        run: python3 -m pip install -r .github/requirements.txt
-
-      - name: ⚙️ Lint
-        run: python3 -m ruff check .
-
-      - name: 💅 Format
-        run: python3 -m ruff format . --check
-
-  yamllint:
-    name: 🧹 Yaml Lint
-    if: ${{ needs.changes.outputs.yaml == 'true' }}
-    needs:
-      - changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⤵️ Check out Repo
-        uses: actions/checkout@v4
-
-      - name: 🚀 Run yamllint
-        run: yamllint --strict .
 
   ha:
     name: 👻 HA Validation (hassfest)
@@ -91,6 +48,10 @@ jobs:
       - name: 🚀 Run HACS Validation
         uses: "hacs/action@main"
         with: {category: "integration"}
+
+  validate:
+    name: 👻 Validation
+    uses: "andrewjswan/actions/.github/workflows/validate.yml@main"
 
   ci-status:
     name: 🎭 Status
