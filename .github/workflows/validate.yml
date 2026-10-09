@@ -74,7 +74,7 @@ jobs:
 
       - name: 🚀 Run mypy strict check
         run: |
-          mypy --strict custom_components/swatch_time
+          mypy --strict --config-file .pyproject.toml custom_components/swatch_time
 
   ci-status:
     name: 🎭 Status
