@@ -1,0 +1,22 @@
+[tool.mypy]
+# Target Python version used by the current Home Assistant Core release
+python_version = "3.13"
+
+# Enable strict mode globally to satisfy Platinum quality scale requirements
+strict = true
+show_error_codes = true
+
+# Do not ignore missing imports globally to catch unannotated third-party code
+ignore_missing_imports = false
+
+# Ignore missing stubs specifically for Home Assistant core modules during CI runs
+[[tool.mypy.overrides]]
+module = "homeassistant.*"
+ignore_missing_imports = true
+
+# Enforce maximum type checking rules specifically for your custom integration
+[[tool.mypy.overrides]]
+module = "custom_components.swatch_time.*"
+strict = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
