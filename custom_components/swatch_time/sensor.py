@@ -77,7 +77,7 @@ class SwatchTimeSensor(SensorEntity):
         """Cancel next update."""
         if self.unsub:
             self.unsub()
-            self.unsub = CALLBACK_TYPE | None = None
+            self.unsub: CALLBACK_TYPE | None = None
 
     def get_next_interval(self, time_date: datetime) -> datetime:
         """Compute next time an update should occur."""
