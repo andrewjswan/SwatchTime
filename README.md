@@ -14,11 +14,13 @@ Create [Swatch / Internet Time](https://en.wikipedia.org/wiki/Swatch_Internet_Ti
 ## Description
 
 In version Home Assistant 2024.2.0, it was decided to [remove](https://github.com/home-assistant/core/pull/106871) the Swatch / Internet time (beat) sensor from the Time & Date integration, a message appeared in the logs:
+
 ```
 The `beat` Time & Date sensor is being removed
 This stops working in version 2024.7.0. Please address before upgrading.
 Please remove the `beat` key from the `display_options` for the time_date entry in your configuration.yaml file and restart Home Assistant to fix this issue.
 ```
+
 This custom integration returns this sensor to Home Assistant, the functionality remains the same.
 
 ## Installation
@@ -43,7 +45,7 @@ This integration is part of the default [HACS](https://hacs.xyz/) repository. Ju
 1. Chose `Integration` as a **Category**
 1. **SwatchTime** will appear in the list of available integrations. Install it normally.
 
-### Method 3: 
+### Method 3:
 
 [![manual](https://img.shields.io/badge/Manual-blue.svg?logo=HomeAssistantCommunityStore&logoColor=white)](https://github.com/andrewjswan/SwatchTime/releases/latest)
 
