@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import homeassistant.util.dt as dt_util
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.const import EVENT_CORE_CONFIG_UPDATE
-from homeassistant.core import Event, HomeAssistant, callback
+from homeassistant.core import CALLBACK_TYPE, Event, HomeAssistant, callback
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.event import async_track_point_in_utc_time
 
@@ -77,7 +77,7 @@ class SwatchTimeSensor(SensorEntity):
         """Cancel next update."""
         if self.unsub:
             self.unsub()
-            self.unsub = None
+            self.unsub = CALLBACK_TYPE | None = None
 
     def get_next_interval(self, time_date: datetime) -> datetime:
         """Compute next time an update should occur."""
