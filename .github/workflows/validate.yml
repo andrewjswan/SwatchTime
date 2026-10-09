@@ -50,7 +50,7 @@ jobs:
         uses: "actions/checkout@v7"
       - name: 🚀 Run HACS Validation
         uses: "hacs/action@main"
-        with: {category: "integration"}
+        with: { category: "integration" }
 
   validate:
     name: 👻 Validation
